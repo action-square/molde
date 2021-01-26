@@ -1,0 +1,17 @@
+.potato {
+  div {
+    color: white;
+
+    .content {
+      color: pink;
+
+      &:hover {
+        color: red;
+      }
+    }
+  }
+
+  a {
+    color: green;
+  }
+}

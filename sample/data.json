@@ -1,0 +1,20 @@
+[
+  {
+    "to": "me@localhost.com",
+    "from": "mail@localhost.com",
+    "subject": "your potato",
+    "name": "poopoopicker"
+  },
+  {
+    "to": "you@localhost.com",
+    "from": "mail@localhost.com",
+    "subject": "your plant",
+    "name": "vowshyte"
+  },
+  {
+    "to": "we@localhost.com",
+    "from": "mail@localhost.com",
+    "subject": "your goal",
+    "name": "mellitus"
+  }
+]
