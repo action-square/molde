@@ -36,9 +36,13 @@ func TestParser_ParseKeys(t *testing.T) {
 }
 
 func TestParser_ReadJson(t *testing.T) {
-	out, err := ReadJson("../../sample/test.json")
+	out, err := ReadJson("../../sample/data.json")
 	assert.Nil(t, err)
 
-	expect := map[string]interface{}{"email": "potato@yourmom.biz", "name": "poopoopicker"}
-	assert.Equal(t, expect, out[0], "The json struct is not correct.")
+	expect := map[string]interface{}{
+		"to":      "me@localhost.com",
+		"from":    "mail@localhost.com",
+		"subject": "your potato",
+		"name":    "poopoopicker"}
+	assert.Equal(t, expect, out[0], "The output map is not correct.")
 }
