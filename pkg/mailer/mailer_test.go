@@ -19,6 +19,6 @@ func TestMailer_Start(t *testing.T) {
 		"../../sample/sass/styles.scss",
 		"../../sample/content.md", &template)
 
-	mailer := NewMailer(auth, "localhost:587", data, 4, &template)
+	mailer := NewMailer(auth, "localhost:587", "mail@localhost.com", data, 4, &template)
 	mailer.Start()
 }
