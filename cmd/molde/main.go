@@ -17,7 +17,8 @@ func main() {
 	flag.StringVar(&authId, "authId", "", "`optional` usually not required for authentication")
 	flag.StringVar(&authUser, "authUser", "", "`username` for authentication")
 	flag.StringVar(&authPass, "authPass", "", "`password` for authentication")
-	var host, port string
+	var from, host, port string
+	flag.StringVar(&from, "from", "", "sender mail username")
 	flag.StringVar(&host, "host", "", "mail server `address`")
 	flag.StringVar(&port, "port", "587", "mail server `port`")
 	var data, layout, styles, content string
@@ -47,6 +48,6 @@ func main() {
 	var template bytes.Buffer
 	parser.GenerateTemplate(layout, styles, content, &template)
 
-	mailer := mailer.NewMailer(auth, host+":"+port, parsedData, numWorkers, &template)
+	mailer := mailer.NewMailer(auth, host+":"+port, from, parsedData, numWorkers, &template)
 	mailer.Start()
 }
