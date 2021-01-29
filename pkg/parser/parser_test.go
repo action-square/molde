@@ -41,7 +41,6 @@ func TestParser_ReadJson(t *testing.T) {
 
 	expect := map[string]interface{}{
 		"to":      "me@localhost.com",
-		"from":    "mail@localhost.com",
 		"subject": "your potato",
 		"name":    "poopoopicker"}
 	assert.Equal(t, expect, out[0], "The output map is not correct.")

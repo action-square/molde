@@ -1,6 +1,6 @@
 {
   "name": "molde",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "An e-mail template generator using SCSS and Markdown",
   "main": "cmd/molde/main.go",
   "author": {

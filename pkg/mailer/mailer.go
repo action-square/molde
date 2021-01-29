@@ -10,18 +10,19 @@ import (
 
 // Mailer is used to store mailing information
 type Mailer struct {
-	auth       smtp.Auth
-	address    string
-	data       []interface{}
-	numWorkers uint
-	template   *bytes.Buffer
+	auth          smtp.Auth
+	address, from string
+	data          []interface{}
+	numWorkers    uint
+	template      *bytes.Buffer
 }
 
 // NewMailer creates new `Mailer` instance
-func NewMailer(auth smtp.Auth, address string, data []interface{}, numWorkers uint, template *bytes.Buffer) *Mailer {
+func NewMailer(auth smtp.Auth, address, from string, data []interface{}, numWorkers uint, template *bytes.Buffer) *Mailer {
 	return &Mailer{
 		auth:       auth,
 		address:    address,
+		from:       from,
 		data:       data,
 		numWorkers: numWorkers,
 		template:   template,
@@ -43,7 +44,7 @@ func (m *Mailer) mail(keys map[string]interface{}, template []byte, sig <-chan b
 	msg := []byte(head + "\n" + body.String() + "\r\n")
 	to := []string{keys["to"].(string)}
 
-	if err := smtp.SendMail(m.address, m.auth, keys["from"].(string), to, msg); err != nil {
+	if err := smtp.SendMail(m.address, m.auth, m.from, to, msg); err != nil {
 		errs <- err
 	} else {
 		code <- 400
