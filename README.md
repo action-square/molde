@@ -21,7 +21,7 @@ You can take a look at the `sample` directory or look at the test files for exam
 
 To send the mails you'll need to make a `layout` file with the base **HTML** for the template and two tags `{% css %}`, for the generated **CSS**, using **Sass**; and `{% content %}`, for the generated **HTML**, using **Markdown**.
 The `content` file can include any number of tags, formatted as `{{ flag }}`, as long as there's a correponding field in the `data` file.
-Each mail's tags can have different values in the `data` file, but there must always be the `from`, `to` and `subject` fields.
+Each mail's tags can have different values in the `data` file, but there must always be the `to` and `subject` fields.
 
 ## Contributions
 
