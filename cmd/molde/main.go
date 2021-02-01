@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"flag"
 	"log"
@@ -22,14 +23,15 @@ func main() {
 	flag.StringVar(&host, "host", "", "mail server `address`")
 	flag.StringVar(&port, "port", "587", "mail server `port`")
 	var data, layout, styles, content string
-	flag.StringVar(&data, "data", "./data.json", "mail `data` JSON file")
+	flag.StringVar(&data, "data", "./data.json", "mail `data` JSON file or inline if used with --inlineData")
 	flag.StringVar(&layout, "layout", "./layout.html", "mail `layout` HTML file")
 	flag.StringVar(&styles, "styles", "./sass/styles.scss", "mail `styles` Sass/SCSS main file")
 	flag.StringVar(&content, "content", "./content.md", "mail `content` Markdown file")
 	var numWorkers uint
 	flag.UintVar(&numWorkers, "workers", 4, "number of parallel `workers` at the same time")
-	var showHelp bool
+	var showHelp, inlineData bool
 	flag.BoolVar(&showHelp, "help", false, "show help message")
+	flag.BoolVar(&inlineData, "inlineData", false, "use `data` as inline JSON")
 	flag.Parse()
 
 	if showHelp {
@@ -40,9 +42,18 @@ func main() {
 	}
 
 	auth := smtp.PlainAuth(authId, authUser, authPass, host)
-	parsedData, err := parser.ReadJson(data)
-	if err != nil {
-		log.Fatal(err)
+
+	var parsedData []interface{}
+	var err error
+	if inlineData {
+		if err := json.Unmarshal([]byte(data), &parsedData); err != nil {
+			log.Fatal(err)
+		}
+	} else {
+		parsedData, err = parser.ReadJson(data)
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
 
 	var template bytes.Buffer
